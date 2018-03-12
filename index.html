@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>portal</title>
+    <script>
+      // 移动端跳转
+      var OS = function() {
+        var a = navigator.userAgent,
+          b = /(?:Android)/.test(a),
+          d = /(?:Firefox)/.test(a),
+          e = /(?:Mobile)/.test(a),
+          f = b && e,
+          g = b && !f,
+          c = /(?:iPad.*OS)/.test(a),
+          h = !c && /(?:iPhone\sOS)/.test(a),
+          k = c || g || /(?:PlayBook)/.test(a) || d && /(?:Tablet)/.test(a),
+          a = !k && (b || h || /(?:(webOS|hpwOS)[\s\/]|BlackBerry.*Version\/|BB10.*Version\/|CriOS\/)/.test(a) || d && e);
+        return {
+          android: b,
+          androidPad: g,
+          androidPhone: f,
+          ipad: c,
+          iphone: h,
+          tablet: k,
+          phone: a
+        }
+      }();
+      if (OS.phone || OS.ipad) {
+      } else {
+        let params  = "?" + location.href.split('?')[1];
+        location.href = 'https://portal.rulaiyun.net/pc' + params;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script type="text/javascript">
+    /* 因为我们后面用的是rem布局，所以这里做下处理，根据不用设备分辨率更改跟字体大小。 rem相关布局*/
+    (function(win,doc){
+      change();
+      function change(){
+        doc.documentElement.style.fontSize = doc.documentElement.clientWidth *100/375+'px';
+      }
+      win.addEventListener('resize',change,false);
+      win.addEventListener('orientationchange',change,false);  /* 这个是移动端设备横屏、竖屏转换时触发的事件处理函数 */
+    })(window,document);
+  </script>
+</html>
